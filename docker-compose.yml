@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: first_script
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/first_script
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Charisma7
+
+  db:
+    image: postgres:latest
+    container_name: POSTGRES_NEW
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: first_script
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Charisma7
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
