@@ -71,13 +71,13 @@ jobs:
           fi
           
           # Stop and remove existing Postgres container if it exists
-          if [ "$(sudo docker ps -q -f name=first_script_key-mysql)" ]; then
+          if [ "$(sudo docker ps -q -f name=first_script_key-postgres)" ]; then
               echo "Stopping and removing existing PostgreSQL container..."
               sudo docker stop first_script_key-postgres
               sudo docker rm first_script_key-postgres
           fi
           
-          # Run a new MySQL container
+          # Run a new PostgreSQL container
           echo "Starting a new Postgres container..."
           sudo docker run -d --name cloudproject-postgres -e POSTGRES_ROOT_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DATABASE=cloud_db -p 3307:3306 postgres:latest
           
