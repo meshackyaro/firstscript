@@ -71,23 +71,23 @@ jobs:
           fi
           
           # Stop and remove existing Postgres container if it exists
-          if [ "$(sudo docker ps -q -f name=first_script_key-postgres)" ]; then
+          if [ "$(sudo docker ps -q -f name=firstscript-postgres)" ]; then
               echo "Stopping and removing existing PostgreSQL container..."
-              sudo docker stop first_script_key-postgres
-              sudo docker rm first_script_key-postgres
+              sudo docker stop firstscript-postgres
+              sudo docker rm firstscript-postgres
           fi
           
           # Run a new PostgreSQL container
           echo "Starting a new Postgres container..."
-          sudo docker run -d --name cloudproject-postgres -e POSTGRES_ROOT_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DATABASE=cloud_db -p 3307:3306 postgres:latest
+          sudo docker run -d --name firstscript-postgres -e POSTGRES_ROOT_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DATABASE=cloud_db -p 3307:3306 postgres:latest
           
           # Pull and run your application container
           echo "Pulling the latest application image..."
           sudo docker pull meshackyaro/firstscript:${{ github.sha }}
-          sudo docker stop first_script_key-app || true
-          sudo docker rm first_script_key-app || true
+          sudo docker stop firstscript-app || true
+          sudo docker rm firstscript-app || true
           echo "Starting application container..."
-          sudo docker run -d --name first_script_key-app --link first_script_key-postgres:first_script_key-postgres -p 8088:8088 meshackyaro/firstscript:${{ github.sha }}
+          sudo docker run -d --name firstscript-app --link firstscript-postgres:firstscript-postgres -p 8088:8088 meshackyaro/firstscript:${{ github.sha }}
           EOF
 
       - name: Cleanup
