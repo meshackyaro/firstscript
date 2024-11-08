@@ -186,7 +186,7 @@ jobs:
           
           # Run a new PostgreSQL container
           echo "Starting a new PostgreSQL container..."
-          sudo docker run -d --name firstscript-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DB=first_script -p 5432:5432 postgres:latest
+          sudo docker run -d --name firstscript-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DB=cloud_db -p 5432:5432 postgres:latest
           
           # Wait for PostgreSQL to be ready
           for i in {1..10}; do
