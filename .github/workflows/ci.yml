@@ -153,12 +153,17 @@ jobs:
           PEM_KEY: ${{ secrets.PEM_KEY }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}  # Ensure this is set in GitHub secrets
         run: |
-          # Save the PEM key to a file
+          # Write the PEM key to a file
           echo "${{ secrets.PEM_KEY }}" > firstscript_key.pem
-          chmod 400 first_script_key.pem
+
+          # Ensure the PEM key has the correct permissions
+          chmod 400 firstscript_key.pem
+          
+          # Debug: Verify the file exists and permissions
+          ls -l firstscript_key.pem
 
           # SSH into the EC2 instance and deploy the application
-          ssh -o StrictHostKeyChecking=no -i first_script_key.pem ubuntu@$EC2_PUBLIC_IP << EOF
+          ssh -o StrictHostKeyChecking=no -i firstscript_key.pem ubuntu@$EC2_PUBLIC_IP << EOF
           
           # Update package lists
           sudo apt-get update
@@ -217,4 +222,5 @@ jobs:
 
       - name: Cleanup
         if: always()
-        run: rm -f first_script_key.pem  # Securely remove the PEM file
+        run: rm -f firstscript_key.pem  # Securely remove the PEM file
+
