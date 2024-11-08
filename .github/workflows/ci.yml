@@ -105,7 +105,7 @@
 
 
 
-name: name: Deploy Dockerhub
+name: Deploy Dockerhub
 
 on:
   push:
