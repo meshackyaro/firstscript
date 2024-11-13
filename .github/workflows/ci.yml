@@ -116,4 +116,3 @@ jobs:
       - name: Cleanup
         if: always()
         run: rm -f firstscript_key.pem  # Securely remove the PEM file
-
